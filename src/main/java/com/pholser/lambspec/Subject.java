@@ -10,7 +10,7 @@ public abstract class Subject<S> {
         return new Subject<T>() {
             @Override protected void test(Predicate<? super T> p) {
                 if (!p.test(subject))
-                    fail("[%s] did not match [%s]", subject, p);
+                    fail("[%s] did not satisfy [%s]", subject, p);
             }
         };
     }
@@ -20,7 +20,7 @@ public abstract class Subject<S> {
             @Override protected void test(Predicate<? super T> p) {
                 for (T each : subject) {
                     if (!p.test(each))
-                        fail("[%s] from sequence [%s] did not match [%s]", each, subject, p);
+                        fail("[%s] from sequence [%s] did not satisfy [%s]", each, subject, p);
                 }
             }
         };
@@ -33,7 +33,7 @@ public abstract class Subject<S> {
                     if (p.test(each))
                         return;
                 }
-                fail("No item from sequence [%s] matched [%s]", subject, p);
+                fail("No item from sequence [%s] satisfied [%s]", subject, p);
             }
         };
     }

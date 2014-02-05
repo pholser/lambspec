@@ -21,16 +21,22 @@ public class ExpectationsTest {
         try {
             expect("foo").to(s -> s.startsWith("d"));
         } catch (AssertionError expected) {
-            assertThat(expected.getMessage(), startsWith("[foo] did not match [" + getClass().getName()));
+            assertThat(expected.getMessage(), startsWith("[foo] did not satisfy [" + getClass().getName()));
+            return;
         }
+
+        fail();
     }
 
     @Test public void unmetExpectationWithPredicateThatOverridesToString() {
         try {
             expect("foo").to(StartsWith.startsWith("d"));
         } catch (AssertionError expected) {
-            assertEquals("[foo] did not match [a string that starts with [d]]", expected.getMessage());
+            assertEquals("[foo] did not satisfy [a string that starts with [d]]", expected.getMessage());
+            return;
         }
+
+        fail();
     }
 
     @Test public void metExpectationWithSatisfySugaring() {
@@ -53,8 +59,31 @@ public class ExpectationsTest {
         expectEvery(asList("foo", "fungo", "faro")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
     }
 
+    @Test public void notAllItemsInSubjectSatisfyingAllOfASetOfPredicates() {
+        try {
+            expectEvery(asList("foo", "fungo", "fare")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
+        } catch (AssertionError expected) {
+            assertThat(expected.getMessage(),
+                    startsWith("[fare] from sequence [[foo, fungo, fare]] did not satisfy [" + getClass().getName()));
+            return;
+        }
+
+        fail();
+    }
+
     @Test public void atLeastOneItemInSubjectSatisfyingAllOfASetOfPredicates() {
         expectAtLeastOneOf(asList("a", "b", "c")).to(isEqual("b"));
+    }
+
+    @Test public void noItemsInSubjectSatisfyingAllOfASetOfPredicates() {
+        try {
+            expectAtLeastOneOf(asList("a", "b", "c")).to(isEqual("d"));
+        } catch (AssertionError expected) {
+            assertThat(expected.getMessage(), startsWith("No item from sequence [[a, b, c]] satisfied ["));
+            return;
+        }
+
+        fail();
     }
 
     @Test public void instanceOfExpectation() {
