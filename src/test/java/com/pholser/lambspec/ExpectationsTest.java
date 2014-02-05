@@ -3,6 +3,7 @@ package com.pholser.lambspec;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+import com.google.common.base.Strings;
 import org.junit.Test;
 
 import static com.pholser.lambspec.Lambspec.*;
@@ -37,6 +38,10 @@ public class ExpectationsTest {
         }
 
         fail();
+    }
+
+    @Test public void metGuavaExpectation() {
+        expect("").to(satisfy(Strings::isNullOrEmpty));
     }
 
     @Test public void metExpectationWithSatisfySugaring() {
