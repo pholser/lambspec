@@ -1,5 +1,5 @@
 def javaProjects() {
-    return subprojects.findAll { new File(it.projectDir, "src").exists() }
+    return subprojects.findAll { new File(it.projectDir, 'src').exists() }
 }
 
 allprojects {
