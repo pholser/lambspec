@@ -1,3 +1,28 @@
+/*
+ The MIT License
+
+ Copyright (c) 2014 Paul R. Holser, Jr.
+
+ Permission is hereby granted, free of charge, to any person obtaining
+ a copy of this software and associated documentation files (the
+ "Software"), to deal in the Software without restriction, including
+ without limitation the rights to use, copy, modify, merge, publish,
+ distribute, sublicense, and/or sell copies of the Software, and to
+ permit persons to whom the Software is furnished to do so, subject to
+ the following conditions:
+
+ The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
 package com.pholser.lambspec;
 
 import java.util.Objects;
@@ -8,19 +33,19 @@ import org.junit.Test;
 
 import static com.pholser.lambspec.Lambspec.*;
 import static com.pholser.lambspec.Subject.*;
-import static java.util.Arrays.*;
-import static java.util.function.Predicate.*;
-import static org.hamcrest.CoreMatchers.*;
+import static java.util.Arrays.asList;
+import static java.util.function.Predicate.isEqual;
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.*;
 
 public class ExpectationsTest {
     @Test public void metExpectation() {
-        expect("foo").to(s -> s.startsWith("f"));
+        subject("foo").must(s -> s.startsWith("f"));
     }
 
     @Test public void unmetExpectation() {
         try {
-            expect("foo").to(s -> s.startsWith("d"));
+            subject("foo").must(s -> s.startsWith("d"));
         } catch (AssertionError expected) {
             assertThat(expected.getMessage(), startsWith("[foo] did not satisfy [" + getClass().getName()));
             return;
@@ -31,7 +56,7 @@ public class ExpectationsTest {
 
     @Test public void unmetExpectationWithPredicateThatOverridesToString() {
         try {
-            expect("foo").to(StartsWith.startsWith("d"));
+            subject("foo").must(StartsWith.startsWith("d"));
         } catch (AssertionError expected) {
             assertEquals("[foo] did not satisfy [a string that starts with [d]]", expected.getMessage());
             return;
@@ -41,32 +66,32 @@ public class ExpectationsTest {
     }
 
     @Test public void metGuavaExpectation() {
-        expect("").to(satisfy(Strings::isNullOrEmpty));
+        subject("").must(satisfy(Strings::isNullOrEmpty));
     }
 
     @Test public void metExpectationWithSatisfySugaring() {
-        expect("foo").to(satisfy(s -> s.startsWith("f")));
+        subject("foo").must(satisfy(s -> s.startsWith("f")));
     }
 
     @Test public void metExpectationConsistingOfDisjunctionOfPredicates() {
-        expect("foo").to(satisfyAny(s -> s.endsWith("g"), s -> s.startsWith("f")));
+        subject("foo").must(satisfyAny(s -> s.endsWith("g"), s -> s.startsWith("f")));
     }
 
     @Test public void metExpectationConsistingOfConjunctionOfPredicates() {
-        expect("foo").to(satisfyAll(s -> s.endsWith("o"), s -> s.startsWith("f")));
+        subject("foo").must(satisfyAll(s -> s.endsWith("o"), s -> s.startsWith("f")));
     }
 
     @Test public void metExpectationConsistingOfAlternativeConjunctionOfPredicates() {
-        expect("foo").to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
+        subject("foo").must(s -> s.endsWith("o")).must(s -> s.startsWith("f"));
     }
 
     @Test public void allItemsInSubjectSatisfyingAllOfASetOfPredicates() {
-        expectEvery(asList("foo", "fungo", "faro")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
+        eachOf(asList("foo", "fungo", "faro")).must(s -> s.endsWith("o")).must(s -> s.startsWith("f"));
     }
 
     @Test public void notAllItemsInSubjectSatisfyingAllOfASetOfPredicates() {
         try {
-            expectEvery(asList("foo", "fungo", "fare")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
+            eachOf(asList("foo", "fungo", "fare")).must(s -> s.endsWith("o")).must(s -> s.startsWith("f"));
         } catch (AssertionError expected) {
             assertThat(expected.getMessage(),
                     startsWith("[fare] from sequence [[foo, fungo, fare]] did not satisfy [" + getClass().getName()));
@@ -77,12 +102,12 @@ public class ExpectationsTest {
     }
 
     @Test public void atLeastOneItemInSubjectSatisfyingAllOfASetOfPredicates() {
-        expectAtLeastOneOf(asList("a", "b", "c")).to(isEqual("b"));
+        atLeastOneOf(asList("a", "b", "c")).must(isEqual("b"));
     }
 
     @Test public void noItemsInSubjectSatisfyingAllOfASetOfPredicates() {
         try {
-            expectAtLeastOneOf(asList("a", "b", "c")).to(isEqual("d"));
+            atLeastOneOf(asList("a", "b", "c")).must(isEqual("d"));
         } catch (AssertionError expected) {
             assertThat(expected.getMessage(), startsWith("No item from sequence [[a, b, c]] satisfied ["));
             return;
@@ -94,51 +119,51 @@ public class ExpectationsTest {
     @Test public void instanceOfExpectation() {
         Object o = "asdf";
 
-        expect(o).to(s -> s instanceof String);
+        subject(o).must(s -> s instanceof String);
     }
 
     @Test public void howToDoEqualTo() {
-        expect(2).to(satisfy(isEqual(Integer.parseInt("2"))));
+        subject(2).must(satisfy(isEqual(Integer.parseInt("2"))));
     }
 
     @Test public void howToDoAny() {
-        expect(2).to(Integer.class::isInstance);
+        subject(2).must(Integer.class::isInstance);
     }
 
     @Test public void expectationAlwaysMet() {
-        expect(new Object()).to(alwaysTrue);
+        subject(new Object()).must(alwaysTrue);
     }
 
     @Test(expected = AssertionError.class) public void expectationNeverMet() {
-        expect(new Object()).to(alwaysFalse);
+        subject(new Object()).must(alwaysFalse);
     }
 
     @Test public void subjectHasAtLeastSomeSetOfItems() {
-        expect(asList("a", "b", "c")).to(have("b")).to(have("c"));
+        subject(asList("a", "b", "c")).must(have("b")).must(have("c"));
     }
 
     @Test public void subjectHasAtLeastOneItemSatisfyingAPredicate() {
-        expect(asList("a", "bb", "ccc")).to(haveAnItemSatisfying(s -> s.length() == 2));
+        subject(asList("a", "bb", "ccc")).must(haveAnItemSatisfying(s -> s.length() == 2));
     }
 
     @Test public void subjectHasAtLeastOneItemSatisfyingManyPredicates() {
-        expect(asList("a", "bb", "ccc"))
-                .to(haveAnItemSatisfying(s -> s.length() == 2))
-                .to(haveAnItemSatisfying(s -> s.length() == 3));
+        subject(asList("a", "bb", "ccc"))
+                .must(haveAnItemSatisfying(s -> s.length() == 2))
+                .must(haveAnItemSatisfying(s -> s.length() == 3));
     }
 
     @Test public void fluentNot() {
-        expect(2).to(Lambspec.not(Long.class::isInstance));
+        subject(2).must(Lambspec.not(Long.class::isInstance));
     }
 
     @Test public void notNull() {
-        expect(2).to(Objects::nonNull);
+        subject(2).must(Objects::nonNull);
     }
 
     @Test public void howToDoSameInstance() {
         Object o = new Object();
 
-        expect(o).to(p -> o == p);
+        subject(o).must(p -> o == p);
     }
 
     static class StartsWith implements Predicate<String> {
