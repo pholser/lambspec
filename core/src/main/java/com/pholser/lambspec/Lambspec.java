@@ -44,7 +44,7 @@ public class Lambspec {
      *
      * <p>For example:</p>
      *
-     * <p><pre><code>expect("foo").to(<strong>satisfy(s -> s.length() == 3)</strong>);</code></pre></p>
+     * <pre>subject("foo").must(<strong>satisfy(s -&gt; s.length() == 3)</strong>);</pre>
      *
      * @param p a predicate
      * @param <S> the type of the argument to the predicate
@@ -61,8 +61,7 @@ public class Lambspec {
      *
      * <p>For example:</p>
      *
-     * <p><pre><code>expect("foo").to(<strong>satisfyAny(s -> s.length() == 3, s -> s.startsWith("x")</strong>);
-     * </code></pre></p>
+     * <pre>subject("foo").must(<strong>satisfyAny(s -&gt; s.length() == 3, s -&gt; s.startsWith("x")</strong>);</pre>
      *
      * @param first a predicate
      * @param rest zero or more predicates
@@ -83,8 +82,7 @@ public class Lambspec {
      *
      * <p>For example:</p>
      *
-     * <p><pre><code>expect("foo").to(<strong>satisfyAll(s -> s.length() == 3, s -> s.startsWith("f")</strong>);
-     * </code></pre></p>
+     * <pre>subject("foo").must(<strong>satisfyAll(s -&gt; s.length() == 3, s -&gt; s.startsWith("f")</strong>);</pre>
      *
      * @param first a predicate
      * @param rest zero or more predicates

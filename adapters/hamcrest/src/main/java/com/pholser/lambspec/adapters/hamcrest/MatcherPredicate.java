@@ -31,7 +31,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
 
 /**
- * A predicate that adapts a <a href="">Hamcrest</a> matcher.
+ * A predicate that adapts a <a href="https://github.com/hamcrest/JavaHamcrest">Hamcrest</a> matcher.
  *
  * @param <T> a constraint on the type of arguments to the predicate
  */
