@@ -8,7 +8,7 @@ Assertion library for Java >= 8
 * [RSpec](http://rspec.info/)-like syntax for nominating test subjects
 and specifying expectations on them:
 
-    subject("foo").must(s -> s.startsWith("f"));
+    `subject("foo").must(s -> s.startsWith("f"));`
 
 * Uses [predicates](http://download.java.net/jdk8/docs/api/java/util/function/Predicate.html)
 as the means for specifying expectations on test subjects. `Predicate` is a
