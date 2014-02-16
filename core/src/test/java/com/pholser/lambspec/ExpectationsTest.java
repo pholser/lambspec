@@ -166,6 +166,10 @@ public class ExpectationsTest {
         subject(o).must(p -> o == p);
     }
 
+    @Test public void usingInstanceMethodReferencesAsPredicates() {
+        subject("foo").must("football"::startsWith);
+    }
+
     static class StartsWith implements Predicate<String> {
         private final String prefix;
 
