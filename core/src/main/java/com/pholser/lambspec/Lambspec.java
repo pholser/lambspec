@@ -97,8 +97,8 @@ public class Lambspec {
     }
 
     /**
-     * <p>Creates a predicate that decides whether an element of its {@link Iterable} argument satisfies the
-     * given predicate.</p>
+     * Creates a predicate that decides whether an element of its {@link Iterable} argument satisfies the
+     * given predicate.
      *
      * @param p the predicate to apply to elements of a sequence
      * @param <S> a constraint on the type of the elements of the sequence
@@ -115,7 +115,7 @@ public class Lambspec {
     }
 
     /**
-     * <p>Creates a predicate that decides whether a given item is in the given sequence.</p>
+     * Creates a predicate that decides whether a given item is in the given sequence.
      *
      * @param item the item to look for in the sequence
      * @param <S> the type of the item

@@ -94,7 +94,7 @@ public abstract class Subject<S> {
     }
 
     /**
-     * <p>Establishes an expectation on the condition of the test subject.</p>
+     * Establishes an expectation on the condition of the test subject.
      *
      * @param p a predicate that represents the expectation
      * @return self, so that expectations can be chained
