@@ -35,7 +35,10 @@ public class Lambspec {
         throw new UnsupportedOperationException();
     }
 
+    /** Predicate that answers {@code true} no matter its argument. */
     public static final Predicate<Object> alwaysTrue = o -> true;
+
+    /** Predicate that answers {@code false} no matter its argument. */
     public static final Predicate<Object> alwaysFalse = alwaysTrue.negate();
 
     /**
@@ -123,6 +126,21 @@ public class Lambspec {
      */
     public static <S> Predicate<Iterable<S>> have(S item) {
         return haveAnItemSatisfying(Predicate.isEqual(item));
+    }
+
+    /**
+     * <p>Creates a predicate that decides whether a given item is {@linkplain Object#equals(Object) equal to}
+     * another.</p>
+     *
+     * <p>This is sugar for {@link Predicate#isEqual(Object)}, and reads better than it as an argument to
+     * {@link Subject#must(Predicate)}.</p>
+     *
+     * @param other an item to compare to another
+     * @param <S> the type of the item
+     * @return a predicate that tests whether the given item equals another
+     */
+    public static <S> Predicate<S> be(S other) {
+        return Predicate.isEqual(other);
     }
 
     /**

@@ -34,7 +34,6 @@ import org.junit.Test;
 import static com.pholser.lambspec.Lambspec.*;
 import static com.pholser.lambspec.Subject.*;
 import static java.util.Arrays.asList;
-import static java.util.function.Predicate.isEqual;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.*;
 
@@ -102,12 +101,12 @@ public class ExpectationsTest {
     }
 
     @Test public void atLeastOneItemInSubjectSatisfyingAllOfASetOfPredicates() {
-        atLeastOneOf(asList("a", "b", "c")).must(isEqual("b"));
+        atLeastOneOf(asList("a", "b", "c")).must(be("b"));
     }
 
     @Test public void noItemsInSubjectSatisfyingAllOfASetOfPredicates() {
         try {
-            atLeastOneOf(asList("a", "b", "c")).must(isEqual("d"));
+            atLeastOneOf(asList("a", "b", "c")).must(be("d"));
         } catch (AssertionError expected) {
             assertThat(expected.getMessage(), startsWith("No item from sequence [[a, b, c]] satisfied ["));
             return;
@@ -123,7 +122,7 @@ public class ExpectationsTest {
     }
 
     @Test public void howToDoEqualTo() {
-        subject(2).must(satisfy(isEqual(Integer.parseInt("2"))));
+        subject(2).must(be(Integer.parseInt("2")));
     }
 
     @Test public void howToDoAny() {
