@@ -108,8 +108,8 @@ public class Lambspec {
      * @return a predicate that tests elements of the sequence against the given predicate
      */
     public static <S> Predicate<Iterable<S>> haveAnItemSatisfying(Predicate<? super S> p) {
-        return ts -> {
-            for (S each : ts) {
+        return items -> {
+            for (S each : items) {
                 if (p.test(each))
                     return true;
             }
@@ -125,7 +125,7 @@ public class Lambspec {
      * @return a predicate that tests whether the given item is in a sequence
      */
     public static <S> Predicate<Iterable<S>> have(S item) {
-        return haveAnItemSatisfying(Predicate.isEqual(item));
+        return haveAnItemSatisfying(be(item));
     }
 
     /**
