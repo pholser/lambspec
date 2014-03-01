@@ -1,1 +1,1 @@
-include 'core', 'adapters:guava', 'adapters:hamcrest'
+include 'core', 'adapters:guava', 'adapters:hamcrest', 'junit'
