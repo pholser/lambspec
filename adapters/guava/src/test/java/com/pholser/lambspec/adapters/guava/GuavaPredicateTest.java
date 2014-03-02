@@ -34,12 +34,12 @@ import static org.junit.Assert.*;
 
 public class GuavaPredicateTest {
     @Test public void metExpectationUsingGuavaPredicateAsPredicate() {
-        subject("foo").must(applyTo(containsPattern("^fo")));
+        expect("foo").to(applyTo(containsPattern("^fo")));
     }
 
     @Test public void unmetExpectationUsingGuavaPredicateAsPredicate() {
         try {
-            subject("foo").must(applyTo(containsPattern("fo$")));
+            expect("foo").to(applyTo(containsPattern("fo$")));
         } catch (AssertionError expected) {
             assertEquals("[foo] did not satisfy [" + containsPattern("fo$") + ']', expected.getMessage());
             return;

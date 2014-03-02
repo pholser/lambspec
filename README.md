@@ -8,7 +8,7 @@ Assertion library for Java >= 8
 * [RSpec](http://rspec.info/)-like syntax for nominating test subjects
 and specifying expectations on them:
 
-    `subject("foo").must(s -> s.startsWith("f"));`
+    `expect("foo").to(s -> s.startsWith("f"));`
 
 * Uses [predicates](http://download.java.net/jdk8/docs/api/java/util/function/Predicate.html)
 as the means for specifying expectations on test subjects. `Predicate` is a
@@ -19,6 +19,9 @@ expectations more succinctly and sweetly.
 * Optional adapters for [Hamcrest](http://hamcrest.org/JavaHamcrest/)
 matchers and [Guava](https://code.google.com/p/guava-libraries/) predicates
 
+* Similar syntax for establishing
+[assumptions](https://github.com/junit-team/junit/wiki/Assumptions-with-assume)
+for [JUnit theories](http://junit.org).
 
 ## Examples
 
@@ -27,11 +30,11 @@ The best place to begin exploring is in test class `ExpectationsTest`.
 
 ## Caveats
 
-When an expectation is not met, the raised `AssertionError`'s message will
-contain the `toString()` of the expectation. A lambda expression's
-`toString()` is not terribly pretty or helpful. If evocative assertion error
-messages are important to you, you may want to create implementations of
-`Predicate`, anonymous or otherwise, and override `toString()` to your liking.
+When an expectation or assumption is not met, the raised exception's message will
+contain the `toString()` of the expectation. A lambda expression's `toString()`
+is not terribly pretty or helpful. If evocative assertion error messages are
+important to you, you may want to create implementations of `Predicate`,
+anonymous or otherwise, and override `toString()` to your liking.
 
 ## About
 

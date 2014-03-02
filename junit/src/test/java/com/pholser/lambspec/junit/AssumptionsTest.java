@@ -34,12 +34,12 @@ import static org.junit.Assert.*;
 
 public class AssumptionsTest {
     @Test public void validAssumption() {
-        given("foo").which(s -> s.startsWith("f"));
+        assume("foo").to(s -> s.startsWith("f"));
     }
 
     @Test public void invalidAssumption() {
         try {
-            given("foo").which(s -> s.startsWith("d"));
+            assume("foo").to(s -> s.startsWith("d"));
             fail();
         } catch (AssumptionViolatedException expected) {
             assertThat(expected.getMessage(), startsWith("[foo] did not satisfy [" + getClass().getName()));

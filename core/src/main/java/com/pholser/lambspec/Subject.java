@@ -30,8 +30,8 @@ import java.util.function.Predicate;
 /**
  * <p>Provides a fluent interface for describing and verifying expectations on a particular test subject.</p>
  *
- * <p>Initiate expectations on a test subject using {@link #subject(Object)}, then chain as many expectations
- * in the form of {@linkplain Predicate predicates} as you like with {@link #must(Predicate)}.</p>
+ * <p>Initiate expectations on a test subject using {@link #expect(Object)}, then chain as many expectations
+ * in the form of {@linkplain Predicate predicates} as you like with {@link #to(Predicate)}.</p>
  *
  * @param <S> the type of the test subject
  */
@@ -42,15 +42,15 @@ public abstract class Subject<S> {
     /**
      * Establishes the given object as a test subject, against which expectations can be set.
      *
-     * @param subject an object to test
+     * @param target an object to test
      * @param <T> the type of the test subject
      * @return a test subject in the fluent interface
      */
-    public static <T> Subject<T> subject(T subject) {
+    public static <T> Subject<T> expect(T target) {
         return new Subject<T>() {
             @Override protected void test(Predicate<? super T> p) {
-                if (!p.test(subject))
-                    fail("[%s] did not satisfy [%s]", subject, p);
+                if (!p.test(target))
+                    fail("[%s] did not satisfy [%s]", target, p);
             }
         };
     }
@@ -100,7 +100,7 @@ public abstract class Subject<S> {
      * @return self, so that expectations can be chained
      * @throws AssertionError if the expectation is not met
      */
-    public final Subject<S> must(Predicate<? super S> p) {
+    public final Subject<S> to(Predicate<? super S> p) {
         test(p);
         return this;
     }

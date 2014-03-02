@@ -39,12 +39,12 @@ import static org.junit.Assert.*;
 
 public class ExpectationsTest {
     @Test public void metExpectation() {
-        subject("foo").must(s -> s.startsWith("f"));
+        expect("foo").to(s -> s.startsWith("f"));
     }
 
     @Test public void unmetExpectation() {
         try {
-            subject("foo").must(s -> s.startsWith("d"));
+            expect("foo").to(s -> s.startsWith("d"));
         } catch (AssertionError expected) {
             assertThat(expected.getMessage(), startsWith("[foo] did not satisfy [" + getClass().getName()));
             return;
@@ -55,7 +55,7 @@ public class ExpectationsTest {
 
     @Test public void unmetExpectationWithPredicateThatOverridesToString() {
         try {
-            subject("foo").must(StartsWith.startsWith("d"));
+            expect("foo").to(StartsWith.startsWith("d"));
         } catch (AssertionError expected) {
             assertEquals("[foo] did not satisfy [a string that starts with [d]]", expected.getMessage());
             return;
@@ -65,32 +65,32 @@ public class ExpectationsTest {
     }
 
     @Test public void metGuavaExpectation() {
-        subject("").must(satisfy(Strings::isNullOrEmpty));
+        expect("").to(satisfy(Strings::isNullOrEmpty));
     }
 
     @Test public void metExpectationWithSatisfySugaring() {
-        subject("foo").must(satisfy(s -> s.startsWith("f")));
+        expect("foo").to(satisfy(s -> s.startsWith("f")));
     }
 
     @Test public void metExpectationConsistingOfDisjunctionOfPredicates() {
-        subject("foo").must(satisfyAny(s -> s.endsWith("g"), s -> s.startsWith("f")));
+        expect("foo").to(satisfyAny(s -> s.endsWith("g"), s -> s.startsWith("f")));
     }
 
     @Test public void metExpectationConsistingOfConjunctionOfPredicates() {
-        subject("foo").must(satisfyAll(s -> s.endsWith("o"), s -> s.startsWith("f")));
+        expect("foo").to(satisfyAll(s -> s.endsWith("o"), s -> s.startsWith("f")));
     }
 
     @Test public void metExpectationConsistingOfAlternativeConjunctionOfPredicates() {
-        subject("foo").must(s -> s.endsWith("o")).must(s -> s.startsWith("f"));
+        expect("foo").to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
     }
 
     @Test public void allItemsInSubjectSatisfyingAllOfASetOfPredicates() {
-        eachOf(asList("foo", "fungo", "faro")).must(s -> s.endsWith("o")).must(s -> s.startsWith("f"));
+        eachOf(asList("foo", "fungo", "faro")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
     }
 
     @Test public void notAllItemsInSubjectSatisfyingAllOfASetOfPredicates() {
         try {
-            eachOf(asList("foo", "fungo", "fare")).must(s -> s.endsWith("o")).must(s -> s.startsWith("f"));
+            eachOf(asList("foo", "fungo", "fare")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
         } catch (AssertionError expected) {
             assertThat(expected.getMessage(),
                     startsWith("[fare] from sequence [[foo, fungo, fare]] did not satisfy [" + getClass().getName()));
@@ -101,12 +101,12 @@ public class ExpectationsTest {
     }
 
     @Test public void atLeastOneItemInSubjectSatisfyingAllOfASetOfPredicates() {
-        atLeastOneOf(asList("a", "b", "c")).must(be("b"));
+        atLeastOneOf(asList("a", "b", "c")).to(be("b"));
     }
 
     @Test public void noItemsInSubjectSatisfyingAllOfASetOfPredicates() {
         try {
-            atLeastOneOf(asList("a", "b", "c")).must(be("d"));
+            atLeastOneOf(asList("a", "b", "c")).to(be("d"));
         } catch (AssertionError expected) {
             assertThat(expected.getMessage(), startsWith("No item from sequence [[a, b, c]] satisfied ["));
             return;
@@ -118,55 +118,55 @@ public class ExpectationsTest {
     @Test public void instanceOfExpectation() {
         Object o = "asdf";
 
-        subject(o).must(s -> s instanceof String);
+        expect(o).to(s -> s instanceof String);
     }
 
     @Test public void howToDoEqualTo() {
-        subject(2).must(be(Integer.parseInt("2")));
+        expect(2).to(be(Integer.parseInt("2")));
     }
 
     @Test public void howToDoAny() {
-        subject(2).must(Integer.class::isInstance);
+        expect(2).to(Integer.class::isInstance);
     }
 
     @Test public void expectationAlwaysMet() {
-        subject(new Object()).must(alwaysTrue);
+        expect(new Object()).to(alwaysTrue);
     }
 
     @Test(expected = AssertionError.class) public void expectationNeverMet() {
-        subject(new Object()).must(alwaysFalse);
+        expect(new Object()).to(alwaysFalse);
     }
 
     @Test public void subjectHasAtLeastSomeSetOfItems() {
-        subject(asList("a", "b", "c")).must(have("b")).must(have("c"));
+        expect(asList("a", "b", "c")).to(have("b")).to(have("c"));
     }
 
     @Test public void subjectHasAtLeastOneItemSatisfyingAPredicate() {
-        subject(asList("a", "bb", "ccc")).must(haveAnItemSatisfying(s -> s.length() == 2));
+        expect(asList("a", "bb", "ccc")).to(haveAnItemSatisfying(s -> s.length() == 2));
     }
 
     @Test public void subjectHasAtLeastOneItemSatisfyingManyPredicates() {
-        subject(asList("a", "bb", "ccc"))
-                .must(haveAnItemSatisfying(s -> s.length() == 2))
-                .must(haveAnItemSatisfying(s -> s.length() == 3));
+        expect(asList("a", "bb", "ccc"))
+                .to(haveAnItemSatisfying(s -> s.length() == 2))
+                .to(haveAnItemSatisfying(s -> s.length() == 3));
     }
 
     @Test public void fluentNot() {
-        subject(2).must(Lambspec.not(Long.class::isInstance));
+        expect(2).to(Lambspec.not(Long.class::isInstance));
     }
 
     @Test public void notNull() {
-        subject(2).must(Objects::nonNull);
+        expect(2).to(Objects::nonNull);
     }
 
     @Test public void howToDoSameInstance() {
         Object o = new Object();
 
-        subject(o).must(p -> o == p);
+        expect(o).to(p -> o == p);
     }
 
     @Test public void usingInstanceMethodReferencesAsPredicates() {
-        subject("foo").must("football"::startsWith);
+        expect("foo").to("football"::startsWith);
     }
 
     static class StartsWith implements Predicate<String> {

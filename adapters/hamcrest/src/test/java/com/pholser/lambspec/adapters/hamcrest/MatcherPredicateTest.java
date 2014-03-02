@@ -28,19 +28,19 @@ package com.pholser.lambspec.adapters.hamcrest;
 import org.hamcrest.StringDescription;
 import org.junit.Test;
 
-import static com.pholser.lambspec.Subject.subject;
+import static com.pholser.lambspec.Subject.expect;
 import static com.pholser.lambspec.adapters.hamcrest.MatcherPredicate.match;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.*;
 
 public class MatcherPredicateTest {
     @Test public void metExpectationUsingHamcrestMatcherAsPredicate() {
-        subject("foo").must(match(startsWith("f")));
+        expect("foo").to(match(startsWith("f")));
     }
 
     @Test public void unmetExpectationUsingHamcrestMatcherAsPredicate() {
         try {
-            subject("foo").must(match(startsWith("d")));
+            expect("foo").to(match(startsWith("d")));
         } catch (AssertionError expected) {
             assertEquals("[foo] did not satisfy [" + StringDescription.toString(startsWith("d")) + ']',
                     expected.getMessage());

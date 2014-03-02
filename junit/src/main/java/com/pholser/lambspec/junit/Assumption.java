@@ -33,8 +33,8 @@ import org.junit.internal.AssumptionViolatedException;
  * <p>Provides a fluent interface for describing and verifying <a href="http://junit.org/">JUnit</a>
  * <a href="https://github.com/junit-team/junit/wiki/Assumptions-with-assume">assumptions</a>.</p>
  *
- * <p>Initiate assumptions on a given object using {@link #given(Object)}, then chain as many conditions that the
- * object is assumed to meet in the form of {@linkplain Predicate predicates} {@link #which(Predicate)}.</p>
+ * <p>Initiate assumptions on a given object using {@link #assume(Object)}, then chain as many conditions that the
+ * object is assumed to meet in the form of {@linkplain Predicate predicates} {@link #to(Predicate)}.</p>
  *
  * @param <S> the type of object assumptions are made on
  */
@@ -49,7 +49,7 @@ public abstract class Assumption<S> {
      * @param <T> the type of the assumption target
      * @return an assumption target in the fluent interface
      */
-    public static <T> Assumption<T> given(T target) {
+    public static <T> Assumption<T> assume(T target) {
         return new Assumption<T>() {
             @Override protected void test(Predicate<? super T> p) {
                 if (!p.test(target))
@@ -65,7 +65,7 @@ public abstract class Assumption<S> {
      * @return self, so that assumptions can be chained
      * @throws AssumptionViolatedException if the assumption does not hold
      */
-    public final Assumption<S> which(Predicate<? super S> p) {
+    public final Assumption<S> to(Predicate<? super S> p) {
         test(p);
         return this;
     }

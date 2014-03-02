@@ -42,7 +42,7 @@ public class Lambspec {
     public static final Predicate<Object> alwaysFalse = alwaysTrue.negate();
 
     /**
-     * <p>When the argument to {@link Subject#must(Predicate)} is a lambda expression or named in a way that doesn't read
+     * <p>When the argument to {@link Subject#to(Predicate)} is a lambda expression or named in a way that doesn't read
      * fluently, this method can help.</p>
      *
      * <p>For example:</p>
@@ -133,7 +133,7 @@ public class Lambspec {
      * another.</p>
      *
      * <p>This is sugar for {@link Predicate#isEqual(Object)}, and reads better than it as an argument to
-     * {@link Subject#must(Predicate)}.</p>
+     * {@link Subject#to(Predicate)}.</p>
      *
      * @param other an item to compare to another
      * @param <S> the type of the item
