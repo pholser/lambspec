@@ -16,10 +16,10 @@ as the means for specifying expectations on test subjects. `Predicate` is a
 so you can use lambda expressions and method references to specify the
 expectations more succinctly and sweetly.
 
-* Optional adapters for [Hamcrest](http://hamcrest.org/JavaHamcrest/)
+* Optional: adapters for [Hamcrest](http://hamcrest.org/JavaHamcrest/)
 matchers and [Guava](https://code.google.com/p/guava-libraries/) predicates
 
-* Similar syntax for establishing
+* Optional: Similar syntax for establishing
 [assumptions](https://github.com/junit-team/junit/wiki/Assumptions-with-assume)
 for [JUnit theories](http://junit.org).
 
