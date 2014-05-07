@@ -85,12 +85,12 @@ public class ExpectationsTest {
     }
 
     @Test public void allItemsInSubjectSatisfyingAllOfASetOfPredicates() {
-        eachOf(asList("foo", "fungo", "faro")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
+        expectEachOf(asList("foo", "fungo", "faro")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
     }
 
     @Test public void notAllItemsInSubjectSatisfyingAllOfASetOfPredicates() {
         try {
-            eachOf(asList("foo", "fungo", "fare")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
+            expectEachOf(asList("foo", "fungo", "fare")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
         } catch (AssertionError expected) {
             assertThat(expected.getMessage(),
                     startsWith("[fare] from sequence [[foo, fungo, fare]] did not satisfy [" + getClass().getName()));
@@ -101,12 +101,12 @@ public class ExpectationsTest {
     }
 
     @Test public void atLeastOneItemInSubjectSatisfyingAllOfASetOfPredicates() {
-        atLeastOneOf(asList("a", "b", "c")).to(be("b"));
+        expectAtLeastOneOf(asList("a", "b", "c")).to(be("b"));
     }
 
     @Test public void noItemsInSubjectSatisfyingAllOfASetOfPredicates() {
         try {
-            atLeastOneOf(asList("a", "b", "c")).to(be("d"));
+            expectAtLeastOneOf(asList("a", "b", "c")).to(be("d"));
         } catch (AssertionError expected) {
             assertThat(expected.getMessage(), startsWith("No item from sequence [[a, b, c]] satisfied ["));
             return;

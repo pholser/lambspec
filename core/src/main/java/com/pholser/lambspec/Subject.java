@@ -62,7 +62,7 @@ public abstract class Subject<S> {
      * @param <T> the type of the elements of the sequence
      * @return a test subject in the fluent interface
      */
-    public static <T> Subject<T> eachOf(Iterable<T> sequence) {
+    public static <T> Subject<T> expectEachOf(Iterable<T> sequence) {
         return new Subject<T>() {
             @Override protected void test(Predicate<? super T> p) {
                 for (T each : sequence) {
@@ -81,7 +81,7 @@ public abstract class Subject<S> {
      * @param <T> the type of the elements of the sequence
      * @return a test subject in the fluent interface
      */
-    public static <T> Subject<T> atLeastOneOf(Iterable<T> sequence) {
+    public static <T> Subject<T> expectAtLeastOneOf(Iterable<T> sequence) {
         return new Subject<T>() {
             @Override protected void test(Predicate<? super T> p) {
                 for (T each : sequence) {
