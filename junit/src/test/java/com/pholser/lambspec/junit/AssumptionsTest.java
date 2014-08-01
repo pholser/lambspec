@@ -25,8 +25,8 @@
 
 package com.pholser.lambspec.junit;
 
+import org.junit.AssumptionViolatedException;
 import org.junit.Test;
-import org.junit.internal.AssumptionViolatedException;
 
 import static com.pholser.lambspec.junit.Assumption.*;
 import static org.hamcrest.CoreMatchers.*;

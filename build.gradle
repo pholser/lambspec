@@ -19,7 +19,7 @@ configure(javaProjects()) {
     }
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.11'
+        testCompile group: 'junit', name: 'junit', version: '4.12-beta-1'
         testCompile group: 'com.google.guava', name: 'guava', version: '16.+'
     }
 
@@ -45,6 +45,6 @@ project(':adapters:hamcrest') {
 
 project(':junit') {
     dependencies {
-        compile group: 'junit', name: 'junit', version: '4.11'
+        compile group: 'junit', name: 'junit', version: '4.12-beta-1'
     }
 }

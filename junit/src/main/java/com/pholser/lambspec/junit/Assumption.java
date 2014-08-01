@@ -27,7 +27,7 @@ package com.pholser.lambspec.junit;
 
 import java.util.function.Predicate;
 
-import org.junit.internal.AssumptionViolatedException;
+import org.junit.AssumptionViolatedException;
 
 /**
  * <p>Provides a fluent interface for describing and verifying <a href="http://junit.org/">JUnit</a>
