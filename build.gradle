@@ -105,7 +105,6 @@ project(':adapters:guava') {
 project(':adapters:hamcrest') {
   dependencies {
     compile project(':core')
-    compile group: 'com.google.guava', name: 'guava', version: '18.+'
     compile group: 'org.hamcrest', name: 'hamcrest-core', version: '1.3+'
   }
 }
