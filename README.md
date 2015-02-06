@@ -3,6 +3,17 @@
 Assertion library for Java >= 8
 
 
+## Downloading
+
+Accessible from Maven central. Coordinates: `com.pholser:lambspec-{module}:{version}`.
+You will need at minimum `lambspec-core`.
+
+
+## Examples
+
+The best place to begin exploring is in test class `ExpectationsTest`.
+
+
 ## Features
 
 * [RSpec](http://rspec.info/)-like syntax for nominating test subjects
@@ -16,16 +27,12 @@ as the means for specifying expectations on test subjects. `Predicate` is a
 so you can use lambda expressions and method references to specify the
 expectations more succinctly and sweetly.
 
-* Optional: adapters for [Hamcrest](http://hamcrest.org/JavaHamcrest/)
+* Optional: Adapters for [Hamcrest](http://hamcrest.org/JavaHamcrest/)
 matchers and [Guava](https://code.google.com/p/guava-libraries/) predicates
 
 * Optional: Similar syntax for establishing
 [assumptions](https://github.com/junit-team/junit/wiki/Assumptions-with-assume)
 for [JUnit theories](http://junit.org).
-
-## Examples
-
-The best place to begin exploring is in test class `ExpectationsTest`.
 
 
 ## Caveats
