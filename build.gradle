@@ -1,3 +1,12 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'net.researchgate:gradle-release:2.0.0'
+  }
+}
+
 def javaProjects() {
   return subprojects.findAll { new File(it.projectDir, 'src').exists() }
 }
@@ -6,13 +15,15 @@ allprojects {
   apply plugin: 'base'
   apply plugin: 'maven'
   apply plugin: 'signing'
+  apply plugin: 'release'
 }
+
 
 configure(javaProjects()) {
   apply plugin: 'java'
 
   group = 'com.pholser'
-  version = '1.0-SNAPSHOT'
+  version = file("${rootDir}/.version").text.split('=')[1].trim()
   sourceCompatibility = 1.8
   targetCompatibility = 1.8
 
@@ -92,6 +103,10 @@ configure(javaProjects()) {
         }
       }
     }
+  }
+
+  release {
+    versionPropertyFile = '.version'
   }
 }
 
