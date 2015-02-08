@@ -19,7 +19,7 @@ allprojects {
 }
 
 release {
-  versionPropertyFile = '.version'
+  versionPropertyFile = "${rootDir}/.version"
 }
 
 configure(javaProjects()) {
@@ -109,7 +109,7 @@ configure(javaProjects()) {
   }
 
   release {
-    versionPropertyFile = '.version'
+    versionPropertyFile = "${rootDir}/.version"
   }
 }
 
