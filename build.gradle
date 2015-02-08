@@ -107,6 +107,10 @@ configure(javaProjects()) {
       }
     }
   }
+
+  release {
+    versionPropertyFile = '.version'
+  }
 }
 
 project(':adapters:guava') {
