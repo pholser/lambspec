@@ -1,0 +1,4 @@
+com.pholser.lambspec
+com.pholser.lambspec.adapters.guava
+com.pholser.lambspec.adapters.hamcrest
+com.pholser.lambspec.junit
