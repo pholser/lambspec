@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>9</version>
+        <version>7</version>
     </parent>
 
     <licenses>
@@ -100,6 +100,11 @@
                         <header>lambspec, ${project.version}</header>
                         <footer>lambspec, ${project.version}</footer>
                         <doctitle>lambspec, ${project.version}</doctitle>
+                        <links>
+                            <link>http://docs.guava-libraries.googlecode.com/git-history/v18.0/javadoc/</link>
+                            <link>http://hamcrest.org/JavaHamcrest/javadoc/1.3/</link>
+                            <link>http://junit.org/javadoc/latest/</link>
+                        </links>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -111,7 +116,7 @@
                         <checkinComment>Publishing javadoc for ${project.artifactId}:${project.version}</checkinComment>
                         <content>${project.reporting.outputDirectory}/apidocs</content>
                         <skipDeletedFiles>true</skipDeletedFiles>
-                        <pubScmUrl>${scm.connection}</pubScmUrl>
+                        <pubScmUrl>${project.scm.connection}</pubScmUrl>
                         <scmBranch>gh-pages</scmBranch>
                     </configuration>
                 </plugin>
