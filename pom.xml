@@ -95,7 +95,7 @@
                     <version>2.10.1</version>
                     <configuration>
                         <aggregate>true</aggregate>
-                        <show>public</show>
+                        <show>protected</show>
                         <nohelp>true</nohelp>
                         <header>lambspec ${project.version}</header>
                         <footer>lambspec ${project.version}</footer>
