@@ -18,6 +18,9 @@ allprojects {
   apply plugin: 'release'
 }
 
+release {
+  versionPropertyFile = '.version'
+}
 
 configure(javaProjects()) {
   apply plugin: 'java'
@@ -103,10 +106,6 @@ configure(javaProjects()) {
         }
       }
     }
-  }
-
-  release {
-    versionPropertyFile = '.version'
   }
 }
 
