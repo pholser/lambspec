@@ -13,6 +13,8 @@ You will need at minimum `lambspec-core`.
 
 The best place to begin exploring is in test class `ExpectationsTest`.
 
+Javadoc is [here](http://pholser.github.io/lambspec/).
+
 
 ## Features
 
