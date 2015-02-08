@@ -11,7 +11,8 @@ You will need at minimum `lambspec-core`.
 
 ## Examples
 
-The best place to begin exploring is in test class `ExpectationsTest`.
+The best place to begin exploring is in test class
+[ExpectationsTest](https://github.com/pholser/lambspec/blob/master/core/src/test/java/com/pholser/lambspec/ExpectationsTest.java).
 
 Javadoc is [here](http://pholser.github.io/lambspec/).
 
