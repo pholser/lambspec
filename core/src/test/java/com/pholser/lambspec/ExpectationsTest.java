@@ -31,6 +31,7 @@ import java.util.function.Predicate;
 import com.google.common.base.Strings;
 import org.junit.Test;
 
+import static com.pholser.lambspec.DescriptivePredicate.*;
 import static com.pholser.lambspec.Lambspec.*;
 import static com.pholser.lambspec.Subject.*;
 import static java.util.Arrays.asList;
@@ -169,6 +170,11 @@ public class ExpectationsTest {
             .to(haveAnItemSatisfying(s -> s.length() == 3));
     }
 
+    @Test public void subjectHasNoItemsSatisfyingAPredicate() {
+        expect(asList("a", "bb", "ccc"))
+            .to(not(haveAnItemSatisfying(s -> s.length() == 0)));
+    }
+
     @Test public void fluentNot() {
         expect(2).to(Lambspec.not(Long.class::isInstance));
     }
@@ -185,6 +191,25 @@ public class ExpectationsTest {
 
     @Test public void usingInstanceMethodReferencesAsPredicates() {
         expect("foo").to("football"::startsWith);
+    }
+
+    @Test public void metDescriptivePredicate() {
+        expect("foo")
+            .to(meet("starts with 'football'", "football"::startsWith));
+    }
+
+    @Test public void unmetDescriptivePredicate() {
+        try {
+            expect("foo")
+                .to(meet("starts with 'soccer'", "soccer"::startsWith));
+        } catch (AssertionError expected) {
+            assertEquals(
+                "[foo] did not satisfy [starts with 'soccer']",
+                expected.getMessage());
+            return;
+        }
+
+        fail();
     }
 
     static class StartsWith implements Predicate<String> {
