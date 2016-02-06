@@ -46,7 +46,9 @@ public class ExpectationsTest {
         try {
             expect("foo").to(s -> s.startsWith("d"));
         } catch (AssertionError expected) {
-            assertThat(expected.getMessage(), startsWith("[foo] did not satisfy [" + getClass().getName()));
+            assertThat(
+                expected.getMessage(),
+                startsWith("[foo] did not satisfy [" + getClass().getName()));
             return;
         }
 
@@ -57,7 +59,9 @@ public class ExpectationsTest {
         try {
             expect("foo").to(StartsWith.startsWith("d"));
         } catch (AssertionError expected) {
-            assertEquals("[foo] did not satisfy [a string that starts with [d]]", expected.getMessage());
+            assertEquals(
+                "[foo] did not satisfy [a string that starts with [d]]",
+                expected.getMessage());
             return;
         }
 
@@ -72,43 +76,54 @@ public class ExpectationsTest {
         expect("foo").to(satisfy(s -> s.startsWith("f")));
     }
 
-    @Test public void metExpectationConsistingOfDisjunctionOfPredicates() {
-        expect("foo").to(satisfyAny(s -> s.endsWith("g"), s -> s.startsWith("f")));
+    @Test public void metExpectationOfDisjunctionOfPredicates() {
+        expect("foo")
+            .to(satisfyAny(s -> s.endsWith("g"), s -> s.startsWith("f")));
     }
 
-    @Test public void metExpectationConsistingOfConjunctionOfPredicates() {
-        expect("foo").to(satisfyAll(s -> s.endsWith("o"), s -> s.startsWith("f")));
+    @Test public void metExpectationOfConjunctionOfPredicates() {
+        expect("foo")
+            .to(satisfyAll(s -> s.endsWith("o"), s -> s.startsWith("f")));
     }
 
-    @Test public void metExpectationConsistingOfAlternativeConjunctionOfPredicates() {
+    @Test public void metExpectationOfAlternativeConjunctionOfPredicates() {
         expect("foo").to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
     }
 
-    @Test public void allItemsInSubjectSatisfyingAllOfASetOfPredicates() {
-        expectEachOf(asList("foo", "fungo", "faro")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
+    @Test public void allItemsInSubjectSatisfyingAllPredicates() {
+        expectEachOf(asList("foo", "fungo", "faro"))
+            .to(s -> s.endsWith("o"))
+            .to(s -> s.startsWith("f"));
     }
 
-    @Test public void notAllItemsInSubjectSatisfyingAllOfASetOfPredicates() {
+    @Test public void notAllItemsInSubjectSatisfyingAllPredicates() {
         try {
-            expectEachOf(asList("foo", "fungo", "fare")).to(s -> s.endsWith("o")).to(s -> s.startsWith("f"));
+            expectEachOf(asList("foo", "fungo", "fare"))
+                .to(s -> s.endsWith("o"))
+                .to(s -> s.startsWith("f"));
         } catch (AssertionError expected) {
-            assertThat(expected.getMessage(),
-                    startsWith("[fare] from sequence [[foo, fungo, fare]] did not satisfy [" + getClass().getName()));
+            assertThat(
+                expected.getMessage(),
+                startsWith(
+                    "[fare] from sequence [[foo, fungo, fare]] did not satisfy ["
+                        + getClass().getName()));
             return;
         }
 
         fail();
     }
 
-    @Test public void atLeastOneItemInSubjectSatisfyingAllOfASetOfPredicates() {
+    @Test public void atLeastOneItemInSubjectSatisfyingAllPredicates() {
         expectAtLeastOneOf(asList("a", "b", "c")).to(be("b"));
     }
 
-    @Test public void noItemsInSubjectSatisfyingAllOfASetOfPredicates() {
+    @Test public void noItemsInSubjectSatisfyingAllPredicates() {
         try {
             expectAtLeastOneOf(asList("a", "b", "c")).to(be("d"));
         } catch (AssertionError expected) {
-            assertThat(expected.getMessage(), startsWith("No item from sequence [[a, b, c]] satisfied ["));
+            assertThat(
+                expected.getMessage(),
+                startsWith("No item from sequence [[a, b, c]] satisfied ["));
             return;
         }
 
@@ -138,17 +153,20 @@ public class ExpectationsTest {
     }
 
     @Test public void subjectHasAtLeastSomeSetOfItems() {
-        expect(asList("a", "b", "c")).to(have("b")).to(have("c"));
+        expect(asList("a", "b", "c"))
+            .to(have("b"))
+            .to(have("c"));
     }
 
     @Test public void subjectHasAtLeastOneItemSatisfyingAPredicate() {
-        expect(asList("a", "bb", "ccc")).to(haveAnItemSatisfying(s -> s.length() == 2));
+        expect(asList("a", "bb", "ccc"))
+            .to(haveAnItemSatisfying(s -> s.length() == 2));
     }
 
     @Test public void subjectHasAtLeastOneItemSatisfyingManyPredicates() {
         expect(asList("a", "bb", "ccc"))
-                .to(haveAnItemSatisfying(s -> s.length() == 2))
-                .to(haveAnItemSatisfying(s -> s.length() == 3));
+            .to(haveAnItemSatisfying(s -> s.length() == 2))
+            .to(haveAnItemSatisfying(s -> s.length() == 3));
     }
 
     @Test public void fluentNot() {
@@ -176,16 +194,16 @@ public class ExpectationsTest {
             this.prefix = prefix;
         }
 
+        static StartsWith startsWith(String prefix) {
+            return new StartsWith(prefix);
+        }
+
         @Override public boolean test(String s) {
             return s.startsWith(prefix);
         }
 
         @Override public String toString() {
             return String.format("a string that starts with [%s]", prefix);
-        }
-
-        static StartsWith startsWith(String prefix) {
-            return new StartsWith(prefix);
         }
     }
 }

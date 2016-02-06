@@ -33,7 +33,7 @@ import java.util.function.Predicate;
  * <p>Use {@link #meet(String, Predicate)} when you want a nicer message if
  * your lambda-based expectation fails.</p>
  *
- * @param <T> the type of the test subject
+ * @param <T> a constraint on the type of arguments to the predicate
  */
 public class DescriptivePredicate<T> implements Predicate<T> {
     private final String description;
@@ -48,7 +48,7 @@ public class DescriptivePredicate<T> implements Predicate<T> {
      * Makes a predicate that delegates to another predicate, and responds to
      * {@link Object#toString()} with a given string.
      *
-     * @param <U> the type of the test subject
+     * @param <U> a constraint on the type of arguments to the predicate
      * @param description how to respond to {@link Object#toString()}
      * @param delegate what predicate to delegate to
      * @return the new descriptive predicate

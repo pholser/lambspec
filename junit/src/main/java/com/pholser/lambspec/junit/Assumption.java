@@ -30,11 +30,13 @@ import java.util.function.Predicate;
 import org.junit.AssumptionViolatedException;
 
 /**
- * <p>Provides a fluent interface for describing and verifying <a href="http://junit.org/">JUnit</a>
+ * <p>Provides a fluent interface for describing and verifying
+ * <a href="http://junit.org/">JUnit</a>
  * <a href="https://github.com/junit-team/junit/wiki/Assumptions-with-assume">assumptions</a>.</p>
  *
- * <p>Initiate assumptions on a given object using {@link #assume(Object)}, then chain as many conditions that the
- * object is assumed to meet in the form of {@linkplain Predicate predicates} {@link #to(Predicate)}.</p>
+ * <p>Initiate assumptions on a given object using {@link #assume(Object)},
+ * then chain as many conditions that the object is assumed to meet in the
+ * form of {@linkplain Predicate predicates} {@link #to(Predicate)}.</p>
  *
  * @param <S> the type of object assumptions are made on
  */
@@ -79,14 +81,16 @@ public abstract class Assumption<S> {
     protected abstract void test(Predicate<? super S> p);
 
     /**
-     * Helper method for implementers of {@link #test(Predicate)} to create an assumption failure with a particular
-     * message.
+     * Helper method for implementers of {@link #test(Predicate)} to create
+     * an assumption failure with a particular message.
      *
-     * @param messageTemplate a {@linkplain String#format(String, Object...) message format pattern}
+     * @param messageTemplate a {@linkplain String#format(String, Object...)
+     * message format pattern}
      * @param args arguments to the message template
      * @throws AssumptionViolatedException always
      */
     protected void fail(String messageTemplate, Object... args) {
-        throw new AssumptionViolatedException(String.format(messageTemplate, args));
+        throw new AssumptionViolatedException(
+            String.format(messageTemplate, args));
     }
 }

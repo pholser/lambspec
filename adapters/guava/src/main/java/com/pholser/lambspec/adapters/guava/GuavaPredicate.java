@@ -28,7 +28,8 @@ package com.pholser.lambspec.adapters.guava;
 import java.util.function.Predicate;
 
 /**
- * A predicate that adapts a <a href="https://code.google.com/p/guava-libraries/">Guava</a> predicate.
+ * A predicate that adapts a
+ * <a href="https://code.google.com/p/guava-libraries/">Guava</a> predicate.
  *
  * @param <T> a constraint on the type of arguments to the predicate
  */
@@ -46,7 +47,9 @@ public class GuavaPredicate<T> implements Predicate<T> {
      * @param <U> a constraint on the type of arguments to the predicate
      * @return a corresponding core Java predicate
      */
-    public static <U> GuavaPredicate<U> applyTo(com.google.common.base.Predicate<? super U> adapted) {
+    public static <U> GuavaPredicate<U> applyTo(
+        com.google.common.base.Predicate<? super U> adapted) {
+
         return new GuavaPredicate<>(adapted);
     }
 

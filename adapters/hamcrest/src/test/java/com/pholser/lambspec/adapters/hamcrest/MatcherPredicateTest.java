@@ -42,8 +42,11 @@ public class MatcherPredicateTest {
         try {
             expect("foo").to(match(startsWith("d")));
         } catch (AssertionError expected) {
-            assertEquals("[foo] did not satisfy [" + StringDescription.toString(startsWith("d")) + ']',
-                    expected.getMessage());
+            assertEquals(
+                "[foo] did not satisfy ["
+                    + StringDescription.toString(startsWith("d"))
+                    + ']',
+                expected.getMessage());
             return;
         }
 

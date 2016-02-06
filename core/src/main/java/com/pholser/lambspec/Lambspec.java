@@ -28,7 +28,8 @@ package com.pholser.lambspec;
 import java.util.function.Predicate;
 
 /**
- * Sugar methods/fields for creating expectations in the form of {@link Predicate}s.
+ * Sugar methods/fields for creating expectations in the form of
+ * {@link Predicate}s.
  */
 public class Lambspec {
     private Lambspec() {
@@ -42,15 +43,16 @@ public class Lambspec {
     public static final Predicate<Object> alwaysFalse = alwaysTrue.negate();
 
     /**
-     * <p>When the argument to {@link Subject#to(Predicate)} is a lambda expression or named in a way that doesn't read
-     * fluently, this method can help.</p>
+     * <p>When the argument to {@link Subject#to(Predicate)} is a lambda
+     * expression or named in a way that doesn't read fluently, this method
+     * can help.</p>
      *
      * <p>For example:</p>
      *
      * <pre>expect("foo").to(<strong>satisfy(s -&gt; s.length() == 3)</strong>);</pre>
      *
-     * @param p a predicate
      * @param <S> the type of the argument to the predicate
+     * @param p a predicate
      * @return p
      */
     public static <S> Predicate<S> satisfy(Predicate<S> p) {
@@ -60,18 +62,22 @@ public class Lambspec {
     /**
      * <p>Creates a disjunction predicate from many other predicates.</p>
      *
-     * <p>This method is sugar for chained calls to {@link Predicate#or(Predicate)}.</p>
+     * <p>This method is sugar for chained calls to
+     * {@link Predicate#or(Predicate)}.</p>
      *
      * <p>For example:</p>
      *
      * <pre>expect("foo").to(<strong>satisfyAny(s -&gt; s.length() == 3, s -&gt; s.startsWith("x")</strong>);</pre>
      *
+     * @param <S> a constraint on the type of the arguments to the predicates
      * @param first a predicate
      * @param rest zero or more predicates
-     * @param <S> a constraint on the type of the arguments to the predicates
      * @return a predicate that is the disjunction of the given predicates
      */
-    @SafeVarargs public static <S> Predicate<S> satisfyAny(Predicate<S> first, Predicate<? super S>... rest) {
+    @SafeVarargs public static <S> Predicate<S> satisfyAny(
+        Predicate<S> first,
+        Predicate<? super S>... rest) {
+
         Predicate<S> disjunction = first;
         for (Predicate<? super S> each : rest)
             disjunction = disjunction.or(each);
@@ -81,18 +87,22 @@ public class Lambspec {
     /**
      * <p>Creates a conjunction predicate from many other predicates.</p>
      *
-     * <p>This method is sugar for chained calls to {@link Predicate#and(Predicate)}.</p>
+     * <p>This method is sugar for chained calls to
+     * {@link Predicate#and(Predicate)}.</p>
      *
      * <p>For example:</p>
      *
      * <pre>expect("foo").to(<strong>satisfyAll(s -&gt; s.length() == 3, s -&gt; s.startsWith("f")</strong>);</pre>
      *
+     * @param <S> a constraint on the type of the arguments to the predicates
      * @param first a predicate
      * @param rest zero or more predicates
-     * @param <S> a constraint on the type of the arguments to the predicates
      * @return a predicate that is the conjunction of the given predicates
      */
-    @SafeVarargs public static <S> Predicate<S> satisfyAll(Predicate<S> first, Predicate<? super S>... rest) {
+    @SafeVarargs public static <S> Predicate<S> satisfyAll(
+        Predicate<S> first,
+        Predicate<? super S>... rest) {
+
         Predicate<S> conjunction = first;
         for (Predicate<? super S> each : rest)
             conjunction = conjunction.and(each);
@@ -100,14 +110,17 @@ public class Lambspec {
     }
 
     /**
-     * Creates a predicate that decides whether an element of its {@link Iterable} argument satisfies the
-     * given predicate.
+     * Creates a predicate that decides whether an element of its
+     * {@link Iterable} argument satisfies the given predicate.
      *
-     * @param p the predicate to apply to elements of a sequence
      * @param <S> a constraint on the type of the elements of the sequence
-     * @return a predicate that tests elements of the sequence against the given predicate
+     * @param p the predicate to apply to elements of a sequence
+     * @return a predicate that tests elements of the sequence against the
+     * given predicate
      */
-    public static <S> Predicate<Iterable<S>> haveAnItemSatisfying(Predicate<? super S> p) {
+    public static <S> Predicate<Iterable<S>> haveAnItemSatisfying(
+        Predicate<? super S> p) {
+
         return items -> {
             for (S each : items) {
                 if (p.test(each))
@@ -118,10 +131,11 @@ public class Lambspec {
     }
 
     /**
-     * Creates a predicate that decides whether a given item is in the given sequence.
+     * Creates a predicate that decides whether a given item is in the given
+     * sequence.
      *
-     * @param item the item to look for in the sequence
      * @param <S> the type of the item
+     * @param item the item to look for in the sequence
      * @return a predicate that tests whether the given item is in a sequence
      */
     public static <S> Predicate<Iterable<S>> have(S item) {
@@ -129,14 +143,14 @@ public class Lambspec {
     }
 
     /**
-     * <p>Creates a predicate that decides whether a given item is {@linkplain Object#equals(Object) equal to}
-     * another.</p>
+     * <p>Creates a predicate that decides whether a given item is
+     * {@linkplain Object#equals(Object) equal to} another.</p>
      *
-     * <p>This is sugar for {@link Predicate#isEqual(Object)}, and reads better than it as an argument to
-     * {@link Subject#to(Predicate)}.</p>
+     * <p>This is sugar for {@link Predicate#isEqual(Object)}, and reads
+     * better than it as an argument to {@link Subject#to(Predicate)}.</p>
      *
-     * @param other an item to compare to another
      * @param <S> the type of the item
+     * @param other an item to compare to another
      * @return a predicate that tests whether the given item equals another
      */
     public static <S> Predicate<S> be(S other) {
@@ -148,8 +162,8 @@ public class Lambspec {
      *
      * <p>This method is sugar for {@link Predicate#negate()}.</p>
      *
-     * @param p a predicate
      * @param <S> the type of the argument to the predicate
+     * @param p a predicate
      * @return the negation of the given predicate
      */
     public static <S> Predicate<S> not(Predicate<S> p) {

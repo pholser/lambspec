@@ -41,7 +41,9 @@ public class GuavaPredicateTest {
         try {
             expect("foo").to(applyTo(containsPattern("fo$")));
         } catch (AssertionError expected) {
-            assertEquals("[foo] did not satisfy [" + containsPattern("fo$") + ']', expected.getMessage());
+            assertEquals(
+                "[foo] did not satisfy [" + containsPattern("fo$") + ']',
+                expected.getMessage());
             return;
         }
 
