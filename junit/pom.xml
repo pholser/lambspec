@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>lambspec-junit</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>lambspec-junit</name>
     <description>Assertion library for Java &gt;= 8: JUnit functionality</description>
@@ -11,7 +11,7 @@
     <parent>
         <groupId>com.pholser</groupId>
         <artifactId>lambspec</artifactId>
-        <version>1.0</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>
